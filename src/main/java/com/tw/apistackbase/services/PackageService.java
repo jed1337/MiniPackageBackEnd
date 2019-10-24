@@ -13,7 +13,7 @@ public class PackageService {
     @Autowired
     private PackageRepository packageRepository;
 
-    public List<Package> getAllPackages(){
+    public List<Package> findAllPackages(){
         return packageRepository.findAll();
     }
 

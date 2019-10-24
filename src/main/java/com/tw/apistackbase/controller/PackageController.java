@@ -17,8 +17,8 @@ public class PackageController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code= HttpStatus.OK)
-    public List<Package> getAllPackages(){
-        return packageService.getAllPackages();
+    public List<Package> findAllPackages(){
+        return packageService.findAllPackages();
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

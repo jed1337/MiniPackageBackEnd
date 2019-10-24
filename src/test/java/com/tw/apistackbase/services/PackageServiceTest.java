@@ -1,7 +1,6 @@
 package com.tw.apistackbase.services;
 
 import com.tw.apistackbase.entity.Package;
-import com.tw.apistackbase.entity.Package;
 import com.tw.apistackbase.repositories.PackageRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +26,14 @@ public class PackageServiceTest {
     private PackageRepository packageRepository;
 
     @Test
-    public void should_getAllPackages() {
+    public void should_findAllPackages() {
         List<Package> packageList = Arrays.asList(
                 new Package(1),
                 new Package(2)
         );
         when(packageRepository.findAll()).thenReturn(packageList);
 
-        List<Package> allPackages = packageService.getAllPackages();
+        List<Package> allPackages = packageService.findAllPackages();
 
         assertThat(allPackages, hasSize(2));
         assertThat(allPackages.get(0).getPackageNumber(), is(1));

@@ -2,7 +2,6 @@ package com.tw.apistackbase.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tw.apistackbase.entity.Package;
-import com.tw.apistackbase.entity.Package;
 import com.tw.apistackbase.services.PackageService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +19,6 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -42,13 +40,13 @@ public class PackageControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    public void should_getAllPackages() throws Exception {
+    public void should_findAllPackages() throws Exception {
         List<Package> packageList = Arrays.asList(
                 new Package(1),
                 new Package(2)
         );
 
-        when(packageService.getAllPackages()).thenReturn(packageList);
+        when(packageService.findAllPackages()).thenReturn(packageList);
 
         ResultActions result = mvc.perform(get("/packages/"));
 
