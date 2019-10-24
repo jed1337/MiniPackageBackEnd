@@ -11,6 +11,7 @@ import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -50,8 +51,21 @@ public class PickupServiceTest {
         Pickup updatedPickup = new Pickup(1);
         updatedPickup.setPickupTime("12");
 
+        when(pickupRepository.save(updatedPickup)).thenReturn(updatedPickup);
+
+        assertThat(pickupService.updatePickup(1, updatedPickup).getPickupTime(), is("12"));
+    }
+
+
+    @Test
+    public void should_not_patchExistingPickup() {
+        when(pickupRepository.findById(1)).thenReturn(Optional.empty());
+
+        Pickup updatedPickup = new Pickup(1);
+        updatedPickup.setPickupTime("12");
+
         Pickup updatedPickupResult = pickupService.updatePickup(1, updatedPickup);
 
-        assertThat(updatedPickup.getPickupTime(), is("12"));
+        assertThat(updatedPickupResult, is(nullValue()));
     }
 }
