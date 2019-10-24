@@ -15,4 +15,8 @@ public class PickupService {
     public Optional<Pickup> findById(int id){
         return pickupRepository.findById(id);
     }
+
+    public Pickup postNewPickup(Pickup pickup) {
+        return pickupRepository.save(pickup);
+    }
 }

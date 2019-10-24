@@ -3,6 +3,7 @@ package com.tw.apistackbase.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class Pickup {
@@ -33,5 +34,19 @@ public class Pickup {
 
     public void setPickupTime(String pickupTime) {
         this.pickupTime = pickupTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pickup pickup = (Pickup) o;
+        return pickupNumber == pickup.pickupNumber &&
+                Objects.equals(pickupTime, pickup.pickupTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pickupNumber, pickupTime);
     }
 }
