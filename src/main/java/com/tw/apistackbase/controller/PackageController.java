@@ -1,6 +1,7 @@
 package com.tw.apistackbase.controller;
 
 import com.tw.apistackbase.entity.Package;
+import com.tw.apistackbase.entity.Package;
 import com.tw.apistackbase.services.PackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,5 +20,12 @@ public class PackageController {
     public Package findPackage(@PathVariable int id){
         return packageService.findById(id);
     }
+
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(code= HttpStatus.CREATED)
+    public Package postNewPackage(@RequestBody Package newPackage){
+        return packageService.postNewPackage(newPackage);
+    }
+
 
 }

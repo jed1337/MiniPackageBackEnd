@@ -2,12 +2,14 @@ package com.tw.apistackbase.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tw.apistackbase.entity.Package;
+import com.tw.apistackbase.entity.Package;
 import com.tw.apistackbase.services.PackageService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -17,6 +19,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -43,6 +46,23 @@ public class PackageControllerTest {
         ResultActions result = mvc.perform(get("/packages/1"));
 
         result.andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$.packageNumber", is(1)))
+                .andExpect(jsonPath("$.phoneNumber", is("12")));
+    }
+
+    @Test
+    public void should_post_newPackage() throws Exception {
+        Package newPackage = new Package(1);
+        newPackage.setPhoneNumber("12");
+        when(packageService.postNewPackage(newPackage)).thenReturn(newPackage);
+
+        ResultActions result = mvc.perform(post("/packages/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(newPackage))
+        );
+
+        result.andExpect(status().isCreated())
                 .andDo(print())
                 .andExpect(jsonPath("$.packageNumber", is(1)))
                 .andExpect(jsonPath("$.phoneNumber", is("12")));
