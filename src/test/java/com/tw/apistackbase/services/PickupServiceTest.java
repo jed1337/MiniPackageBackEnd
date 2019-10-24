@@ -33,10 +33,25 @@ public class PickupServiceTest {
     @Test
     public void should_postNewPickup() {
         Pickup newPickup = new Pickup(1);
-
         when(pickupRepository.save(newPickup)).thenReturn(newPickup);
 
         Pickup foundPickup = pickupService.postNewPickup(newPickup);
+
         assertThat(newPickup, is(foundPickup));
+    }
+
+    @Test
+    public void should_patchExistingPickup() {
+        Pickup existingPickup = new Pickup(1);
+        existingPickup.setPickupTime("10");
+
+        when(pickupRepository.findById(1)).thenReturn(Optional.of(existingPickup));
+
+        Pickup updatedPickup = new Pickup(1);
+        updatedPickup.setPickupTime("12");
+
+        Pickup updatedPickupResult = pickupService.updatePickup(1, updatedPickup);
+
+        assertThat(updatedPickup.getPickupTime(), is("12"));
     }
 }
