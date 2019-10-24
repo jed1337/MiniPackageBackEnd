@@ -1,7 +1,7 @@
 package com.tw.apistackbase.controller;
 
 import com.tw.apistackbase.entityBasis.Company;
-import com.tw.apistackbase.services.CompanyService;
+import com.tw.apistackbase.servicesBasis.CompanyService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

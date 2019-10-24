@@ -2,7 +2,7 @@ package com.tw.apistackbase.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tw.apistackbase.entityBasis.Company;
-import com.tw.apistackbase.services.CompanyService;
+import com.tw.apistackbase.servicesBasis.CompanyService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

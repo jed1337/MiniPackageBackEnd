@@ -1,4 +1,4 @@
-package com.tw.apistackbase.services;
+package com.tw.apistackbase.servicesBasis;
 
 import com.tw.apistackbase.entityBasis.Company;
 import com.tw.apistackbase.repositoriesBasis.CompanyRepository;

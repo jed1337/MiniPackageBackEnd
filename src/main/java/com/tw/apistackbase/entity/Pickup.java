@@ -15,6 +15,10 @@ public class Pickup {
     public Pickup() {
     }
 
+    public Pickup(int pickupNumber) {
+        this.pickupNumber = pickupNumber;
+    }
+
     public int getPickupNumber() {
         return pickupNumber;
     }
