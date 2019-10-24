@@ -15,6 +15,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.util.Arrays;
+import java.util.List;
+
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -36,6 +40,24 @@ public class PackageControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Test
+    public void should_getAllPackages() throws Exception {
+        List<Package> packageList = Arrays.asList(
+                new Package(1),
+                new Package(2)
+        );
+
+        when(packageService.getAllPackages()).thenReturn(packageList);
+
+        ResultActions result = mvc.perform(get("/packages/"));
+
+        result.andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].packageNumber", is(1)))
+                .andExpect(jsonPath("$[1].packageNumber", is(2)));
+    }
 
     @Test
     public void should_getSinglePackage() throws Exception {
