@@ -2,7 +2,6 @@ package com.tw.apistackbase.services;
 
 import com.tw.apistackbase.entity.Pickup;
 import com.tw.apistackbase.repositories.PickupRepository;
-import jdk.Exported;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import java.util.Optional;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -35,7 +35,7 @@ public class PickupServiceTest {
 
     @Test
     public void should_throw_exception_if_cannot_findById() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             pickupService.findById(-1);
         });
     }
@@ -62,19 +62,14 @@ public class PickupServiceTest {
 
         when(pickupRepository.save(updatedPickup)).thenReturn(updatedPickup);
 
-        assertThat(pickupService.updatePickup(1, updatedPickup).getPickupTime(), is("12"));
+        assertThat(pickupService.updatePickup(updatedPickup).getPickupTime(), is("12"));
     }
 
-
     @Test
-    public void should_not_patchExistingPickup() {
+    public void should_throw_exception_if_cannot_find_existingPickup_to_patch() {
         when(pickupRepository.findById(1)).thenReturn(Optional.empty());
-
-        Pickup updatedPickup = new Pickup(1);
-        updatedPickup.setPickupTime("12");
-
-        Pickup updatedPickupResult = pickupService.updatePickup(1, updatedPickup);
-
-        assertThat(updatedPickupResult, is(nullValue()));
+        assertThrows(IllegalArgumentException.class, () -> {
+            pickupService.updatePickup(new Pickup(1));
+        });
     }
 }

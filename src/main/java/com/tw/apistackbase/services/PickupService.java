@@ -25,16 +25,11 @@ public class PickupService {
         return pickupRepository.save(pickup);
     }
 
-    public Pickup updatePickup(int id, Pickup updatedPickup) {
-        Optional<Pickup> optionalPickup = pickupRepository.findById(id);
+    public Pickup updatePickup(Pickup updatedPickup) {
+        Pickup foundPickup = findById(updatedPickup.getPickupNumber());
 
-        if (optionalPickup.isPresent()) {
-            Pickup existingPickup = optionalPickup.get();
-            existingPickup.setPickupTime(updatedPickup.getPickupTime());
+        foundPickup.setPickupTime(updatedPickup.getPickupTime());
 
-            return pickupRepository.save(existingPickup);
-        } else {
-            return null;
-        }
+        return pickupRepository.save(foundPickup);
     }
 }

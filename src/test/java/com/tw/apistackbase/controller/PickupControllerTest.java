@@ -1,10 +1,8 @@
 package com.tw.apistackbase.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tw.apistackbase.controllerBasis.CompanyController;
 import com.tw.apistackbase.entity.Pickup;
 import com.tw.apistackbase.services.PickupService;
-import com.tw.apistackbase.servicesBasis.CompanyService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +14,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.ignoreStubs;
-import static org.mockito.Mockito.when;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -70,5 +63,23 @@ public class PickupControllerTest {
                 .andDo(print())
                 .andExpect(jsonPath("$.pickupNumber", is(1)))
                 .andExpect(jsonPath("$.pickupTime", is("12")));
+    }
+
+    @Test
+    public void should_update_existingPickup() throws Exception {
+        Pickup existingPickup = new Pickup(1);
+        existingPickup.setPickupTime("12");
+        when(pickupService.updatePickup(existingPickup)).thenReturn(existingPickup);
+
+        ResultActions result = mvc.perform(patch("/pickups/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(existingPickup))
+        );
+
+        result.andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$.pickupNumber", is(1)))
+                .andExpect(jsonPath("$.pickupTime", is("12")));
+
     }
 }
