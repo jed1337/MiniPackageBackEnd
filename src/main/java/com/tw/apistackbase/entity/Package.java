@@ -3,14 +3,13 @@ package com.tw.apistackbase.entity;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 public class Package {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int packageNumber;
 
     private String receiver;

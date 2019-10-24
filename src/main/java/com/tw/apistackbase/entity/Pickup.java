@@ -1,13 +1,12 @@
 package com.tw.apistackbase.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 public class Pickup {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int pickupNumber;
 
     @Column
