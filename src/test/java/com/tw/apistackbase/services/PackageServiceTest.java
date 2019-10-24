@@ -1,6 +1,7 @@
 package com.tw.apistackbase.services;
 
 import com.tw.apistackbase.entity.Package;
+import com.tw.apistackbase.entity.Package;
 import com.tw.apistackbase.repositories.PackageRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,16 @@ public class PackageServiceTest {
             packageService.findById(-1);
         });
     }
+
+    @Test
+    public void should_postNewPackage() {
+        Package newPackage = new Package(1);
+        when(packageRepository.save(newPackage)).thenReturn(newPackage);
+
+        Package foundPackage = packageService.postNewPackage(newPackage);
+
+        assertThat(newPackage, is(foundPackage));
+    }
+
 }
 

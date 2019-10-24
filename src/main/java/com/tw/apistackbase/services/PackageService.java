@@ -20,4 +20,8 @@ public class PackageService {
         }
         throw new IllegalArgumentException(String.format("Package with id %d not found", packageNumber));
     }
+
+    public Package postNewPackage(Package newPackage) {
+        return packageRepository.save(newPackage);
+    }
 }
