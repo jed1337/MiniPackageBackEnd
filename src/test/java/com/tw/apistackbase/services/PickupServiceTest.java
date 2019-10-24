@@ -2,6 +2,8 @@ package com.tw.apistackbase.services;
 
 import com.tw.apistackbase.entity.Pickup;
 import com.tw.apistackbase.repositories.PickupRepository;
+import jdk.Exported;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,6 +31,13 @@ public class PickupServiceTest {
         Pickup foundPickup = pickupService.findById(1);
 
         assertThat(foundPickup.getPickupNumber(), is(1));
+    }
+
+    @Test
+    public void should_throw_exception_if_cannot_findById() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            pickupService.findById(-1);
+        });
     }
 
     @Test
