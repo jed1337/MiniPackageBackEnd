@@ -26,9 +26,9 @@ public class PickupServiceTest {
     public void should_findById() {
         when(pickupRepository.findById(1)).thenReturn(Optional.of(new Pickup(1)));
 
-        Optional<Pickup> foundPickup = pickupService.findById(1);
+        Pickup foundPickup = pickupService.findById(1);
 
-        assertThat(foundPickup.isPresent(), is(true));
+        assertThat(foundPickup.getPickupNumber(), is(1));
     }
 
     @Test

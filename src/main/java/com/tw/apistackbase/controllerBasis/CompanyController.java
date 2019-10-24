@@ -1,4 +1,4 @@
-package com.tw.apistackbase.controller;
+package com.tw.apistackbase.controllerBasis;
 
 import com.tw.apistackbase.entityBasis.Company;
 import com.tw.apistackbase.servicesBasis.CompanyService;
