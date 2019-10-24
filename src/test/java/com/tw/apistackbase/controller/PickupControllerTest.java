@@ -45,7 +45,7 @@ public class PickupControllerTest {
         newPickup.setPickupTime("12");
         when(pickupService.findById(1)).thenReturn(newPickup);
 
-        ResultActions result = mvc.perform(get("/pickup?name=a"));
+        ResultActions result = mvc.perform(get("/pickups/1"));
 
         result.andExpect(status().isOk())
                 .andDo(print())

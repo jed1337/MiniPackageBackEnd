@@ -4,10 +4,7 @@ import com.tw.apistackbase.entity.Pickup;
 import com.tw.apistackbase.entityBasis.Company;
 import com.tw.apistackbase.services.PickupService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -18,7 +15,8 @@ public class PickupController {
     private PickupService pickupService;
 
     @GetMapping(produces = {"application/json"})
-    public Pickup findCompany(@RequestParam(required = false) int id){
+    @RequestMapping("/{id}")
+    public Pickup findPickup(@PathVariable int id){
         return pickupService.findById(id);
     }
 }
