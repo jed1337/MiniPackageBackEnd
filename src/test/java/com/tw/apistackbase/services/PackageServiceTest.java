@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -22,6 +25,21 @@ public class PackageServiceTest {
 
     @MockBean
     private PackageRepository packageRepository;
+
+    @Test
+    public void should_getAllPackages() {
+        List<Package> packageList = Arrays.asList(
+                new Package(1),
+                new Package(2)
+        );
+        when(packageRepository.findAll()).thenReturn(packageList);
+
+        List<Package> allPackages = packageService.getAllPackages();
+
+        assertThat(allPackages, hasSize(2));
+        assertThat(allPackages.get(0).getPackageNumber(), is(1));
+        assertThat(allPackages.get(1).getPackageNumber(), is(2));
+    }
 
     @Test
     public void should_findById() {
